@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  routine: one
+  url: MyString
+  start_time: 1
+  end_time: 1
+  time: 1
+
+two:
+  routine: two
+  url: MyString
+  start_time: 1
+  end_time: 1
+  time: 1
