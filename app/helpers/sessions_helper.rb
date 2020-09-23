@@ -6,4 +6,8 @@ module SessionsHelper
   def logged_in?
     !!current_user
   end
+  
+  def current_routine
+    @current_routine ||= Routine.find_by(id: session[:routine_id])
+  end
 end

@@ -1,6 +1,9 @@
 class User < ApplicationRecord
+    mount_uploader :image, ImageUploader
+    
     has_many :pickups
     has_many :routines
+    has_many :routine_videos, through: :routines, source: :videos
     
     before_save { self.mail.downcase! }
     validates :name, presence: true, length: { maximum: 50 }

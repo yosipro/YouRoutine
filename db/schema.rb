@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_060358) do
+ActiveRecord::Schema.define(version: 2020_09_22_134230) do
 
   create_table "pickups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 2020_09_17_060358) do
     t.text "title"
     t.integer "time"
     t.integer "status"
-    t.binary "image"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_routines_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -36,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_09_17_060358) do
     t.string "password_digest"
     t.integer "gender"
     t.integer "ages"
-    t.binary "image"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,8 +46,8 @@ ActiveRecord::Schema.define(version: 2020_09_17_060358) do
   create_table "videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "routine_id"
     t.string "url"
-    t.integer "start_time"
-    t.integer "end_time"
+    t.text "start_time"
+    t.text "end_time"
     t.integer "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,5 +56,6 @@ ActiveRecord::Schema.define(version: 2020_09_17_060358) do
 
   add_foreign_key "pickups", "routines"
   add_foreign_key "pickups", "users"
+  add_foreign_key "routines", "users"
   add_foreign_key "videos", "routines"
 end

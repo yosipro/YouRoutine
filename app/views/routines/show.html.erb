@@ -1,0 +1,36 @@
+<div><%= image_tag @routine.image.url %></div>
+<h3><%= @routine.title %></h3>
+<% if @routine.status == 0 %>
+  <p>公開</p>
+<% else %>
+  <p>非公開</p>
+<% end %>
+
+<ul>
+    <% @videos.each do |video| %>
+    <!--以下は始まる時間関係-->
+        <% s_time = video.start_time %>
+        <% s_times = s_time.split(':').first %>
+        <% minute = s_times.to_i * 60 %>
+        <% time = minute +  s_time.split(':').last.to_i %>
+        
+    <!--以下はURL関連-->
+        <% uri = URI.parse(video.url) %>
+        <% query = uri.query %>
+        <% queries = query.split('/') %>
+        <% queries.each do |q| %> 
+            <% if q.start_with?("v=") %>
+             <% idy = q.split("=").last %>
+             <%= video.id %>
+             <iframe width="560" height="315" 
+             src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+             <button class="btn"><%= link_to 'この動画を編集する', edit_routine_video_path(video.id) %></button>
+        <% end %>
+        <% end %>
+    <% end %>
+    
+
+    
+</ul>
+
+    <button class="btn mt-5"><%= link_to 'ルーティンのタイトルや画像を変更する！', edit_routine_path(@routine) %></button>

@@ -1,2 +1,27 @@
-<h1>Routines#new</h1>
-<p>Find me in app/views/routines/new.html.erb</p>
+<%= form_with(model: @routine , local: true) do |f| %>
+ <%= render 'layouts/error_messages', model: f.object %>
+
+  <%= f.label :title, 'ルーティンタイトル' %>
+  <%= f.text_field :title %>
+  
+  <%= f.label :time, 'ルーティンにかかる時間' %>
+  <%= f.text_field :time %>
+
+  <div class="form-group">
+    <% if @routine.image? %>                                                              
+    <%= image_tag @routine.image.url %>
+    <% end %>
+
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
+  </div>
+  
+   <div class="form-group">
+  <%= f.radio_button :status, "0" %>
+  <%= f.label :public, "このルーティンを公開する！", {value: 0, style: "display: inline-block;"} %>
+  <%= f.radio_button :status, "1" %>
+  <%= f.label :private, "このルーティンを非公開にする", {value: 1, style: "display: inline-block;"} %>
+  </div>
+  
+  <%= f.submit '保存して、動画を選択する！' %>
+<% end %>

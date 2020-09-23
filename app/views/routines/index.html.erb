@@ -1,5 +1,12 @@
 <% if logged_in? %>
   <p>ログイン完了ユーザ: <%= current_user.name %></p>
+  <h1>作成済みルーティン</h1>
+  <ul>
+    <% @routines.each do |routine| %>
+    <li><%= image_tag routine.image.url %></li>
+    <li><%= link_to routine.title, routine_path(routine) %></li>
+    <% end %>
+  </ul>
 <% else %>
   <div class="center jumbotron">
     <div class="text-center">
