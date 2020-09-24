@@ -21,10 +21,10 @@
         <% queries.each do |q| %> 
             <% if q.start_with?("v=") %>
              <% idy = q.split("=").last %>
-             <%= video.id %>
+
              <iframe width="560" height="315" 
              src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-             <button class="btn"><%= link_to 'この動画を編集する', edit_routine_video_path(video.id) %></button>
+             <button class="btn"><%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit" %></button>
         <% end %>
         <% end %>
     <% end %>

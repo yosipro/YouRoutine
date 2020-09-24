@@ -20,8 +20,7 @@ class VideosController < ApplicationController
     end
     
     def edit
-    @routine = Routine.find_by(id: params[:routine_id])
-    @video = @routine.videos.find(params[:id])
+    @video = current_user.routine_videos.find_by(id: params[:id])
     end
     
     private

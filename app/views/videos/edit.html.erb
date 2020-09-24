@@ -1,4 +1,43 @@
 　　　<p>選択済みの動画</p>
+    <!--以下は始まる時間関係-->
+        <% s_time = @video.start_time %>
+        <% s_times = s_time.split(':').first %>
+        <% minute = s_times.to_i * 60 %>
+        <% time = minute +  s_time.split(':').last.to_i %>
+        
+    <!--以下はURL関連-->
+        <% uri = URI.parse(@video.url) %>
+        <% query = uri.query %>
+        <% queries = query.split('/') %>
+        <% queries.each do |q| %> 
+            <% if q.start_with?("v=") %>
+             <% idy = q.split("=").last %>
+             <iframe width="560" height="315" 
+             src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <% end %>
+        <% end %>
 　　　
-    
-<%= @video.url %>
+　　　
+　　　<div><%= @video.start_time %>〜<%= @video.end_time %></div>
+　　
+
+    <%= form_with model: @video, local: true, url: {controller: 'videos', action: 'update' } do |f| %>
+       <%= render 'layouts/error_messages', model: f.object %>
+       
+      <div class="form-group">
+        <%= f.label :url, '動画のリンク' %>
+        <%= f.text_field :url, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :start_time, 'ルーティンの始まり' %>
+        <%= f.text_field :start_time, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :end_time, 'ルーティンの終わり' %>
+        <%= f.text_field :end_time, class: 'form-control' %>
+      </div>
+
+      <%= f.submit 'この変更内容で保存！', class: 'btn btn-primary btn-block' %>
+    <% end %>

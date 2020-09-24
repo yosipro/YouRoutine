@@ -1,4 +1,6 @@
 class RoutinesController < ApplicationController
+   before_action :require_user_logged_in
+
       require 'uri'
       
   def index

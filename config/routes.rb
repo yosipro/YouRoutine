@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   resources :routines do
     resources :videos, only: [:new, :create, :edit, :update, :delete]
   end
+  
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
 end
