@@ -1,10 +1,11 @@
 class RoutinesController < ApplicationController
    before_action :require_user_logged_in
-
+   before_action :correct_user, only: [:destroy]
       require 'uri'
       
   def index
     @routines = current_user.routines
+    @obtainings = current_user.obtainings
   end
   
   def show
@@ -45,11 +46,25 @@ class RoutinesController < ApplicationController
   end
 
   def destroy
+    @routine = Routine.find(params[:id])
+      
+    @routine.destroy
+
+    flash[:success] = 'ルーティンは正常に削除されました'
+    redirect_to root_url
   end
+    
   
   private
 
   def routine_params
     params.require(:routine).permit(:title, :time, :image, :status)
+  end
+  
+  def correct_user
+    @routine = current_user.routines.find_by(id: params[:id])
+    unless @routine
+      redirect_to root_url
+    end
   end
 end

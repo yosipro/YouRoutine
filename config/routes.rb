@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'routines#index'
   
-  get 'overview', to: 'overviews#index'
+ resources :overviews, only: [:index] do
+    get :search, on: :collection
+  end
+ 
   resources :profiles, only: [:show, :edit, :update]
   
   get 'login', to: 'sessions#new'
@@ -12,8 +15,10 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   
   resources :routines do
-    resources :videos, only: [:new, :create, :edit, :update, :delete]
+    resources :videos, only: [:new, :create, :edit, :update, :destroy]
   end
   
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
+  
+  resources :pickups, only: [:create, :destroy]
 end

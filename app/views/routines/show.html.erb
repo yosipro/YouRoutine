@@ -1,36 +1,224 @@
-<div><%= image_tag @routine.image.url %></div>
-<h3><%= @routine.title %></h3>
-<% if @routine.status == 0 %>
-  <p>公開</p>
-<% else %>
-  <p>非公開</p>
-<% end %>
-
-<ul>
-    <% @videos.each do |video| %>
-    <!--以下は始まる時間関係-->
-        <% s_time = video.start_time %>
-        <% s_times = s_time.split(':').first %>
-        <% minute = s_times.to_i * 60 %>
-        <% time = minute +  s_time.split(':').last.to_i %>
-        
-    <!--以下はURL関連-->
-        <% uri = URI.parse(video.url) %>
-        <% query = uri.query %>
-        <% queries = query.split('/') %>
-        <% queries.each do |q| %> 
-            <% if q.start_with?("v=") %>
-             <% idy = q.split("=").last %>
-
-             <iframe width="560" height="315" 
-             src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-             <button class="btn"><%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit" %></button>
-        <% end %>
-        <% end %>
+ <% if @routine.image? %>
+ <div class="d-flex flex-column mb-5">
+    <div class="d-flex justify-content-center"><%= image_tag @routine.image.url, class: "border border-dark" %></div>
     <% end %>
+    <p class="text-center text-monospace mt-2"><%= @routine.title %></p>
+    <p class="text-center">作成者：<%= link_to @routine.user.name, user_path(@routine.user), class: 'ml-1' %></p>
+</div>
+<% all_time = 0 %>
+<% if @routine.status == 0 && current_user == @routine.user then %>
+
+
+    <ul>
+        
+                <% @videos.each do |video| %>
+        
+                <!--以下は始まる時間関係-->
+            <% s_time = video.start_time %>
+            <% s_times = s_time.split(':').first %>
+            <% minute = s_times.to_i * 60 %>
+            <% time = minute +  s_time.split(':').last.to_i %>
+            <% start_time_minute = (time / 60 ).floor %>
+            <% start_time_second = time - (start_time_minute * 60) %>
+            
+            <% e_time = video.end_time %>
+            <% e_times = e_time.split(':').first %>
+            <% e_minute = e_times.to_i * 60 %>
+            <% end_time = e_minute +  e_time.split(':').last.to_i %>
+            <% end_time_minute = (end_time / 60 ).floor %>
+            <% end_time_second = end_time - (end_time_minute * 60) %>
+            
+            <% total_time_s = end_time - time %>
+            
+            <% total_time_minute = (total_time_s / 60 ).floor %>
+            <% total_time_second = total_time_s - (total_time_minute * 60) %>
+            
+            <% all_time += total_time_s %>
+            
+
+            
+        <!--以下はURL関連-->
+            <% uri = URI.parse(video.url) %>
+            <% query = uri.query %>
+            <% queries = query.split('&') %>
+            <% queries.each do |q| %> 
+                <% if q.start_with?("v=") %>
+                 <% idy = q.split("=").last %>
+                 <% if idy.nil? %>
+                 <% idy = uri.path.split("/").last %>
+                 <% end %>
+                <div class="d-flex align-items-center flex-column justify-content-center">
+                 <iframe width="560" height="315" 
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 
+                     <div class="d-flex mt-4 col-4 justify-content-between">
+                         <p class="text-monospace">
+                             <%= durations(video) %>
+                         </p>
+                         <p class="text-monospace">合計<% if total_time_minute != 0 %>
+                             <%= format_minutes(total_time_minute) %>
+                             <% end %>
+                             <%= format_seconds(total_time_second) %>
+                        </p>
+                    </div>
+                <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary mt-1 mb-5 text-monospace' %>
+                </div>
+                <% end %>
+            <% end %>
+        <% end %>
+        
+        <div class="d-flex justify-content-center">
+            <%= link_to 'Finish!', root_path, class: 'btn btn-primary mt-1 mb-5 w-25' %>
+        </div>
+
+    </ul>
+    
+    <hr>
+    <div class="d-flex justify-content-around">
+        <%= link_to 'このルーティンに動画を追加する！', "/routines/#{@routine.id}/videos/new", class: 'btn btn-success' %>
+        <%= link_to 'ルーティンのタイトルや画像を変更する！', edit_routine_path(@routine), class: 'btn btn-dark' %>
+        <%= link_to 'このルーティンを削除する', @routine , method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+    </div>
     
 
     
-</ul>
+<% elsif @routine.status == 0 && current_user != @routine.user then %>
+    <ul>
+        
+                <% @videos.each do |video| %>
+        
+                <!--以下は始まる時間関係-->
+            <% s_time = video.start_time %>
+            <% s_times = s_time.split(':').first %>
+            <% minute = s_times.to_i * 60 %>
+            <% time = minute +  s_time.split(':').last.to_i %>
+            <% start_time_minute = (time / 60 ).floor %>
+            <% start_time_second = time - (start_time_minute * 60) %>
+            
+            <% e_time = video.end_time %>
+            <% e_times = e_time.split(':').first %>
+            <% e_minute = e_times.to_i * 60 %>
+            <% end_time = e_minute +  e_time.split(':').last.to_i %>
+            <% end_time_minute = (end_time / 60 ).floor %>
+            <% end_time_second = end_time - (end_time_minute * 60) %>
+            
+            <% total_time_s = end_time - time %>
+            
+            <% total_time_minute = (total_time_s / 60 ).floor %>
+            <% total_time_second = total_time_s - (total_time_minute * 60) %>
+            
+            <% all_time += total_time_s %>
+            
 
-    <button class="btn mt-5"><%= link_to 'ルーティンのタイトルや画像を変更する！', edit_routine_path(@routine) %></button>
+            
+        <!--以下はURL関連-->
+            <% uri = URI.parse(video.url) %>
+            <% query = uri.query %>
+            <% queries = query.split('/') %>
+            <% queries.each do |q| %> 
+                <% if q.start_with?("v=") %>
+                 <% idy = q.split("=").last %>
+            
+                <div class="d-flex align-items-center flex-column justify-content-center">
+                 <iframe width="560" height="315" 
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 
+                     <div class="d-flex mt-4 col-4 justify-content-between">
+                         <p class="text-monospace">
+                             <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
+                         </p>
+                         <p class="text-monospace">合計<% if total_time_minute != 0 %>
+                             <%= total_time_minute %>分
+                             <% end %>
+                             <%= total_time_second %>秒間
+                        </p>
+                    </div>
+                <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary mt-1 mb-5 text-monospace' %>
+                </div>
+                <% end %>
+            <% end %>
+        <% end %>
+        
+    </ul>
+    
+    <hr>
+    <div class="d-flex justify-content-around">
+    <%= render 'pickups/obtain_button', routine: @routine %>
+    <%= link_to '他のルーティンを見る！', overviews_path, class: 'btn btn-success' %>
+    </div>
+
+<% elsif current_user == @routine.user && @routine.status == 1 then %>
+ 
+    <ul>
+        
+                <% @videos.each do |video| %>
+        
+                <!--以下は始まる時間関係-->
+            <% s_time = video.start_time %>
+            <% s_times = s_time.split(':').first %>
+            <% minute = s_times.to_i * 60 %>
+            <% time = minute +  s_time.split(':').last.to_i %>
+            <% start_time_minute = (time / 60 ).floor %>
+            <% start_time_second = time - (start_time_minute * 60) %>
+            
+            <% e_time = video.end_time %>
+            <% e_times = e_time.split(':').first %>
+            <% e_minute = e_times.to_i * 60 %>
+            <% end_time = e_minute +  e_time.split(':').last.to_i %>
+            <% end_time_minute = (end_time / 60 ).floor %>
+            <% end_time_second = end_time - (end_time_minute * 60) %>
+            
+            <% total_time_s = end_time - time %>
+            
+            <% total_time_minute = (total_time_s / 60 ).floor %>
+            <% total_time_second = total_time_s - (total_time_minute * 60) %>
+            
+            <% all_time += total_time_s %>
+            
+
+            
+        <!--以下はURL関連-->
+            <% uri = URI.parse(video.url) %>
+            <% query = uri.query %>
+            <% queries = query.split('/') %>
+            <% queries.each do |q| %> 
+                <% if q.start_with?("v=") %>
+                 <% idy = q.split("=").last %>
+            
+                <div class="d-flex align-items-center flex-column justify-content-center">
+                 <iframe width="560" height="315" 
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 
+                     <div class="d-flex mt-4 col-4 justify-content-between">
+                         <p class="text-monospace">
+                             <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
+                         </p>
+                         <p class="text-monospace">合計<% if total_time_minute != 0 %>
+                             <%= total_time_minute %>分
+                             <% end %>
+                             <%= total_time_second %>秒間
+                        </p>
+                    </div>
+                <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary mt-1 mb-5 text-monospace' %>
+                </div>
+                <% end %>
+            <% end %>
+        <% end %>
+        <div class="d-flex justify-content-center">
+            <%= link_to 'Finish!', root_path, class: 'btn btn-primary mt-1 mb-5 w-25' %>
+        </div>
+        
+    </ul>
+    
+    <hr>
+    <div class="d-flex justify-content-around">
+        <%= link_to 'このルーティンに動画を追加する！', "/routines/#{@routine.id}/videos/new", class: 'btn btn-success' %>
+        <%= link_to 'ルーティンのタイトルや画像を変更する！', edit_routine_path(@routine), class: 'btn btn-dark' %>
+        <%= link_to 'このルーティンを削除する', @routine , method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+    </div>
+
+
+<% else %>
+    <p class="text-center mb-4">このルーティンは作成者によって非公開にされています。</p>
+    <div class="text-center mt-2"><%= link_to '他のルーティンを探しに行く！', overviews_path, class: 'btn btn-secondary' %></div>
+<% end %>

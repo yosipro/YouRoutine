@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @routines = @user.routines
   end
 
   def new

@@ -1,8 +1,8 @@
 class VideosController < ApplicationController
     
     def new
-    @routine = Routine.find_by(id: params[:routine_id])
-    @video = @routine.videos.build
+      @routine = Routine.find_by(id: params[:routine_id])
+      @video = @routine.videos.build
     end
     
     def create
@@ -20,7 +20,31 @@ class VideosController < ApplicationController
     end
     
     def edit
-    @video = current_user.routine_videos.find_by(id: params[:id])
+      @video = current_user.routine_videos.find_by(id: params[:id])
+      @routine = Routine.find_by(id: params[:routine_id])
+    end
+    
+    def update
+      @routine = Routine.find_by(id: params[:routine_id])
+      @video = current_user.routine_videos.find_by(id: params[:id])
+      
+      if @video.update(video_params)
+        flash[:success] = '動画は正常に更新されました！'
+        redirect_to @routine
+      else
+        flash.now[:danger] = '動画が更新されませんでした'
+        render :edit
+      end
+    end
+    
+    def destroy
+      @routine = Routine.find_by(id: params[:routine_id])
+      @video = current_user.routine_videos.find_by(id: params[:id])
+      
+      @video.destroy
+
+      flash[:success] = 'Message は正常に削除されました'
+      redirect_to @routine
     end
     
     private

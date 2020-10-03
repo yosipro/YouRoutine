@@ -1,9 +1,25 @@
-　　　<p>選択済みの動画</p>
+　　　<p class="h4 text-center mb-3">選択済みの動画</p>
     <!--以下は始まる時間関係-->
         <% s_time = @video.start_time %>
         <% s_times = s_time.split(':').first %>
         <% minute = s_times.to_i * 60 %>
         <% time = minute +  s_time.split(':').last.to_i %>
+        <% start_time_minute = (time / 60 ).floor %>
+        <% start_time_second = time - (start_time_minute * 60) %>
+        
+        <% e_time = @video.end_time %>
+        <% e_times = e_time.split(':').first %>
+        <% e_minute = e_times.to_i * 60 %>
+        <% end_time = e_minute +  e_time.split(':').last.to_i %>
+        <% end_time_minute = (end_time / 60 ).floor %>
+        <% end_time_second = end_time - (end_time_minute * 60) %>
+            
+        <% total_time_s = end_time - time %>
+            
+        <% total_time_minute = (total_time_s / 60 ).floor %>
+        <% total_time_second = total_time_s - (total_time_minute * 60) %>
+
+
         
     <!--以下はURL関連-->
         <% uri = URI.parse(@video.url) %>
@@ -12,13 +28,23 @@
         <% queries.each do |q| %> 
             <% if q.start_with?("v=") %>
              <% idy = q.split("=").last %>
-             <iframe width="560" height="315" 
-             src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <% end %>
-        <% end %>
-　　　
-　　　
-　　　<div><%= @video.start_time %>〜<%= @video.end_time %></div>
+        <div class="d-flex flex-column align-items-center">
+                 <iframe width="560" height="315" 
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <% end %>
+            <% end %>
+            
+        <div class="d-flex justify-content-between w-25 mt-3">
+             <p>
+                <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
+            </p>
+            <p>合計<% if total_time_minute != 0 %>
+                    <%= total_time_minute %>分
+                <% end %>
+                    <%= total_time_second %>秒間
+             </p>
+        </div>
+         </div>
 　　
 
     <%= form_with model: @video, local: true, url: {controller: 'videos', action: 'update' } do |f| %>
@@ -30,14 +56,19 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :start_time, 'ルーティンの始まり' %>
+        <%= f.label :start_time, 'ルーティン部分の始まり' %>
         <%= f.text_field :start_time, class: 'form-control' %>
       </div>
 
       <div class="form-group">
-        <%= f.label :end_time, 'ルーティンの終わり' %>
+        <%= f.label :end_time, 'ルーティン部分の終わり' %>
         <%= f.text_field :end_time, class: 'form-control' %>
       </div>
-
-      <%= f.submit 'この変更内容で保存！', class: 'btn btn-primary btn-block' %>
+    
+      <div class="d-flex justify-content-center">
+          <%= f.submit 'この変更内容で保存！', class: 'btn btn-primary' %>
+      </div>
     <% end %>
+    <div class="d-flex justify-content-center mt-5 mb-3">
+           <%= link_to 'この動画をルーティンから削除する',"/routines/#{@routine.id}/videos/#{@video.id}", method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+    </div>

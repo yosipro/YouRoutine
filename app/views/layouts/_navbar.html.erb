@@ -1,5 +1,5 @@
-<header class="mb-4">
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<header>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-success">
     <a class="navbar-brand" href="/">YouRoutine</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
@@ -8,14 +8,14 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <% if logged_in? %>
-          <li class="nav-item"><%= link_to 'みんなのルーティン', users_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'みんなのルーティン', overviews_path, class: 'nav-link' %></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>
             <ul class="dropdown-menu dropdown-menu-right">
               <li class="dropdown-item"><%= link_to '新しくルーティンを作成する', new_routine_path %></li>
-              <li class="dropdown-divider"></li>
+              
               <li class="dropdown-item"><%= link_to 'プロフィールを編集する', edit_profile_path(current_user) %></li>
-              <li class="dropdown-divider"></li>
+              
               <li class="dropdown-item"><%= link_to 'ログアウト', logout_path, method: :delete %></li>
             </ul>
           </li>

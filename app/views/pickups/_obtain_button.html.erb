@@ -1,0 +1,12 @@
+  <% if current_user.obtaining?(routine) %>
+    <%= form_with(model: current_user.pickups.find_by(routine_id: routine.id), local: true, method: :delete) do |f| %>
+      <%= hidden_field_tag :routine_id, routine.id %>
+      <%= f.submit 'ルーティンリストから削除する', class: 'btn btn-danger btn-block' %>
+    <% end %>
+ <% else %>
+    <%= form_with(model: current_user.pickups.build, local: true) do |f| %>
+      <%= hidden_field_tag :routine_id, routine.id %>
+      <%= f.submit 'このルーティンを取得する！', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  <% end %>
+ 
