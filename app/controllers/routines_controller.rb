@@ -22,7 +22,7 @@ class RoutinesController < ApplicationController
     
     if @routine.save
       flash[:success] = "ルーティン登録が完了しました！"
-      redirect_to new_routine_video_path(@routine)
+      redirect_to routine_videos_new_path(@routine)
     else
       flash.now[:danger] = "ルーティン登録に失敗しました"
       render :new
