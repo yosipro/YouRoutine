@@ -1,4 +1,4 @@
-　　　<p class="h4 text-center mb-3">選択済みの動画</p>
+　　　<p class="h5 text-center mb-5">選択済みの動画</p>
     <!--以下は始まる時間関係-->
         <% s_time = @video.start_time %>
         <% s_times = s_time.split(':').first %>
@@ -34,11 +34,11 @@
             <% end %>
             <% end %>
             
-        <div class="d-flex justify-content-between w-25 mt-3">
-             <p>
+        <div class="d-flex justify-content-between w-25 mt-5">
+             <p class="text-secondary">
                 <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
             </p>
-            <p>合計<% if total_time_minute != 0 %>
+            <p class="text-muted">合計<% if total_time_minute != 0 %>
                     <%= total_time_minute %>分
                 <% end %>
                     <%= total_time_second %>秒間
@@ -50,23 +50,23 @@
     <%= form_with model: @video, local: true, url: {controller: 'videos', action: 'update' } do |f| %>
        <%= render 'layouts/error_messages', model: f.object %>
        
-      <div class="form-group">
-        <%= f.label :url, '動画のリンク' %>
-        <%= f.text_field :url, class: 'form-control' %>
+      <div class="form-group d-flex justify-content-center align-items-center mt-5">
+        <%= f.label :url, '動画のリンク', class: 'mb-0 mr-3' %>
+        <%= f.text_field :url, class: 'form-control w-50' %>
       </div>
 
-      <div class="form-group">
-        <%= f.label :start_time, 'ルーティン部分の始まり' %>
-        <%= f.text_field :start_time, class: 'form-control' %>
+      <div class="form-group d-flex align-items-center justify-content-center mt-5">
+        <%= f.label :start_time, 'ルーティン部分の始まり', class: 'mb-0 mr-3' %>
+        <p class="timing_field mb-0"><%= f.text_field :start_time, class: 'form-control' %></p>
       </div>
 
-      <div class="form-group">
-        <%= f.label :end_time, 'ルーティン部分の終わり' %>
-        <%= f.text_field :end_time, class: 'form-control' %>
+      <div class="form-group d-flex align-items-center justify-content-center">
+        <%= f.label :end_time, 'ルーティン部分の終わり', class: 'mb-0 mr-3' %>
+        <p class="timing_field mb-0"><%= f.text_field :end_time, class: 'form-control' %></p>
       </div>
     
       <div class="d-flex justify-content-center">
-          <%= f.submit 'この変更内容で保存！', class: 'btn btn-primary' %>
+          <%= f.submit 'この変更内容で保存！', class: 'btn btn-primary mt-5' %>
       </div>
     <% end %>
     <div class="d-flex justify-content-center mt-5 mb-3">

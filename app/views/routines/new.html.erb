@@ -3,12 +3,12 @@
 
 <div class="d-flex flex-column align-items-center">
   <%= f.label :title, 'ルーティンのタイトル' %>
-  <%= f.text_field :title %>
+  <%= f.text_area :title %>
 </div>
   
   <div class="d-flex flex-column align-items-center mt-4">
    <%= f.label :time, 'ルーティンにかかる時間（半角数字）' %>
-   <p>約 <%= f.text_field :time %> 分</p>
+   <p class="time_field">約<%= f.text_field :time %>分</p>
  </div>
  
   <div class="form-group d-flex flex-column align-items-center mt-4">

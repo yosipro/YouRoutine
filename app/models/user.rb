@@ -6,6 +6,9 @@ class User < ApplicationRecord
     has_many :routine_videos, through: :routines, source: :videos, dependent: :destroy
     has_many :obtainings, through: :pickups, source: :routine
     has_many :reverses_of_obtain, class_name: 'Pickup', foreign_key: 'routine_id'
+    has_many :takeins, dependent: :destroy
+    has_many :possesses, through: :takeins, source: :video, dependent: :destroy
+
 
     
     before_save { self.mail.downcase! }
@@ -30,4 +33,18 @@ class User < ApplicationRecord
   def obtaining?(other_routine)
     self.obtainings.include?(other_routine)
   end
+  
+  def possess(other_video)
+        self.takeins.find_or_create_by(video_id: other_video.id)
+  end
+    
+  def letgo(other_video)
+        takein = self.takeins.find_by(video_id: other_video.id)
+        takein.destroy if takein
+  end
+    
+  def possessing?(other_video)
+        self.possesses.include?(other_video)
+  end
+  
 end

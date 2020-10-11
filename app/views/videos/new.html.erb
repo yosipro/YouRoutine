@@ -1,31 +1,46 @@
 <p class="h4 text-center">ルーティンに使用したい動画をYouTubeから選択しよう！</p>
 
-<div class="d-flex justify-content-center mt-4">
+<div class="d-flex justify-content-center align-items-center mt-5 ml-4">
   <%= link_to 'YouTubeへ', 'https://www.youtube.com/', target: :_blank, class: "btn btn-danger" %>
+  <div class="mx-4">or</div>
+  <%= form_with local: true, url: pool_path, method: :get do |f| %>
+     <%= hidden_field_tag :routine_id, @routine.id %>
+  <%= f.submit 'お気に入りから動画を選択する！', class: 'btn btn-warning'%>
+  <% end %>
 </div>
 
     <%= form_with model: @video, local: true, url: {controller: 'videos', action: 'create' } do |f| %>
        <%= render 'layouts/error_messages', model: f.object %>
        
-      <div class="form-group d-flex flex-column align-items-center mt-4">
+      <div class="form-group d-flex flex-column align-items-center mt-5">
         <%= f.label :url, '動画のリンクを貼りつけ' %>
-        <div class="col-4"><%= f.text_field :url, class: 'form-control' %></div>
+        <div class="col-4 mt-3"><%= f.text_field :url, class: 'form-control' %></div>
+      </div>
+      
+      <div class="form-group d-flex justify-content-center align-items-center mt-5">
+        <%= f.label :category, 'ジャンル', class: 'mb-0' %>
+        <%= f.select :category, {'美容': 1, 'ダイエット': 2, '筋トレ': 3, 'その他': 4}, { include_blank: '選択してください'}, class: 'w-25 ml-4' %>
+      </div>
+      
+      <div class="d-flex flex-column align-items-center mt-5">
+        <%= f.label :description, 'ルーティン部分のタイトル',class: 'mb-3' %>
+        <%= f.text_area :description %>
       </div>
 
-      <div class="form-group d-flex justify-content-center align-items-center mt-4">
+      <div class="form-group d-flex justify-content-center align-items-center mt-5">
         <%= f.label :start_time, 'ルーティン部分の始まる時間（例, 3分5秒 → 3:05）を入力' %>
         <div class="col-1"><%= f.text_field :start_time, class: 'form-control' %></div>
       </div>
 
-      <div class="form-group d-flex justify-content-center align-items-center mt-4">
+      <div class="form-group d-flex justify-content-center align-items-center mt-5">
         <%= f.label :end_time, 'ルーティン部分の終わる時間（例, 4分35秒 → 4:35）を入力' %>
         <div class="col-1"><%= f.text_field :end_time, class: 'form-control' %></div>
       </div>
 
-<div class="d-flex justify-content-center mt-4">
-  <%= f.submit 'この動画を追加し、続けて動画を選択する！', class: 'btn btn-primary' %>
+<div class="d-flex justify-content-center mt-5">
+  <%= f.submit 'この動画を追加する！', class: 'btn btn-primary' %>
 </div>
-<div class="d-flex justify-content-center mt-4">
+<div class="d-flex justify-content-center mt-5">
   <%= link_to 'ルーティンの作成を終了する！', routine_path(@routine) , class: "btn btn-success"%>
 </div>
       

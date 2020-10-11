@@ -1,21 +1,33 @@
 <p class="h4 mb-4">プロフィール編集ページ</p>
 
-
+<div class="d-flex justify-content-center profile_container">
+  
 <%= form_with model: @user , local: true, url: {controller: 'profiles', action: 'update' } do |f| %>
 
-<div class="d-flex flex-column align-items-center">
-  <div class="d-flex justify-content-center align-items-center w-50">
+  
+<div class="d-flex flex-column align-items-center w-50 mx-auto">
+  <div class="d-flex justify-content-around align-items-cneter w-100">
   <%= f.label :name, 'ニックネーム',class: 'mr-4 mt-1' %>
-  <%= f.text_field :name, class: 'col-4' %>
+  <%= f.text_field :name, class: 'col-6' %>
   </div>
 
-  <div class="d-flex justify-content-center align-items-center w-50 mt-5">
+  <div class="d-flex justify-content-around align-items-center w-100 mt-5">
   <%= f.label :mail, 'メールアドレス',class: 'mr-3 mt-1' %>
   <%= f.text_field :mail, class: 'col-6'  %>
   </div>
   
-  <div class="d-flex mt-5">
-    <div class="mr-4">性別</div>
+  <div class="form-group d-flex flex-column align-items-center mt-5 pt-4">
+   <p class="small">プロフィール画像をアップロード!</p>
+    <% if @user.image? %>                                                              
+    <%= image_tag @user.image.edit_thumb.url, class: "border border-dark user_icon" %>
+    <% end %>
+
+    <%= f.file_field :image , class: 'mt-4'%>
+    <%= f.hidden_field :image_cache %>
+  </div>
+  
+  <div class="d-flex justify-content-center mt-5 w-100 ">
+    <div class="mr-5">性別</div>
     <div class="form-group">
   <%= f.radio_button :gender, "0" %>
   <%= f.label :gender_man, "男性", {value: 0, style: "display: inline-block;"} %>
@@ -26,23 +38,31 @@
   
   <div class="d-flex mt-5">
       <p>年齢（任意）</p>
-  <div class="form-group">
-  <%= f.radio_button :ages, "0",class:'ml-2' %>
-  <%= f.label :young, "~20歳", {value: 0, style: "display: inline-block;"} %>
-  <%= f.radio_button :ages, "1",class:'ml-2' %>
-  <%= f.label :sedond_young, "21~30歳", {value: 1, style: "display: inline-block;"} %>
-  <%= f.radio_button :ages, "2",class:'ml-2' %>
-  <%= f.label :middle, "31~40歳", {value: 2, style: "display: inline-block;"} %>
-  <%= f.radio_button :ages, "3",class:'ml-2' %>
-  <%= f.label :sedond_young, "41~50歳", {value: 3, style: "display: inline-block;"} %>
-  <%= f.radio_button :ages, "4",class:'ml-2' %>
-  <%= f.label :sedond_young, "51~60歳", {value: 4, style: "display: inline-block;"} %>
-  <%= f.radio_button :ages, "5",class:'ml-2' %>
-  <%= f.label :sedond_young, "61歳以上", {value: 5, style: "display: inline-block;"} %>
+  <div class="form-group d-flex flex-column">
+    <div>
+      <%= f.radio_button :ages, "0",class:'ml-2' %>
+      <%= f.label :young, "~20歳", {value: 0, style: "display: inline-block;"} %>
+      <%= f.radio_button :ages, "1",class:'ml-2' %>
+      <%= f.label :sedond_young, "21~30歳", {value: 1, style: "display: inline-block;"} %>
+      <%= f.radio_button :ages, "2",class:'ml-2' %>
+      <%= f.label :middle, "31~40歳", {value: 2, style: "display: inline-block;"} %>
+    </div>
+    <div>
+      <%= f.radio_button :ages, "3",class:'ml-2' %>
+      <%= f.label :sedond_young, "41~50歳", {value: 3, style: "display: inline-block;"} %>
+      <%= f.radio_button :ages, "4",class:'ml-2' %>
+      <%= f.label :sedond_young, "51~60歳", {value: 4, style: "display: inline-block;"} %>
+      <%= f.radio_button :ages, "5",class:'ml-2' %>
+      <%= f.label :sedond_young, "61歳以上", {value: 5, style: "display: inline-block;"} %>
+    </div>
   </div>
   </div>
   
-  <%= f.submit '変更内容を保存する！',class: 'mt-2' %>
+  <div class="">
+  <%= f.submit '変更内容を保存する！',class: 'mt-5 btn btn-info' %>
+  </div>
   
   </div>
 <% end %>
+
+</div>

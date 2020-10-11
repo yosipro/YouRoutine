@@ -13,31 +13,41 @@
   <%= f.radio_button :search, "3", class: 'ml-2' %>
   <%= f.label :time_3, "それ以上", {value: 1, style: "display: inline-block;"} %>
 
-    <%= f.submit '検索', class: 'ml-2 btn btn-secondary'%>
+    <%= f.submit '検索', class: 'ml-4 btn btn-info'%>
     </div>
   </div>
 <% end %>
+<div class="row">
 <% @routines.each do |routine| %>
-    <% if routine.status == 0 %>
-        
-        <div class="d-flex flex-column align-items-center mt-5">
+
+<% true_user = routine.user %>
+
+<% unless current_user == true_user %>
+        <div class="d-flex flex-column align-items-center mt-5 pt-4 col-4">
         <% if routine.image? %>
-        <div class="mb-1" style="width: 250px;"><%= image_tag routine.image.url, class: "border border-dark" %><p class="mb-1 text-center text-wrap pt-2"><%= routine.title %></p></div>
+        <div class="mb-1" style="width: 250px;"><%= image_tag routine.image.url, class: "border border-dark rounded" %><p class="mb-1 text-center text-wrap pt-2"><%= routine.title %></p></div>
         <% end %>
         
-          <div class="d-flex justify-content-center">
-            <div class="d-flex flex-column align-items-start">
-                <div class="row">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+               <%= image_tag true_user.image.thumb.url, class: "border border-dark user_icon" %>
+            </div>
+            <div class="d-flex flex-column align-items-start px-2">
+                <div class="row ml-1">
                     <p class="mb-0"><%= routine.time %>分</p>
-                    <p class="mb-0 ml-2">公開</p>
-                    <p class="mb-0 ml-2"> <%= routine.created_at.strftime('%Y/%m/%d') %></p>
+                    <p class="mb-0 ml-3"> <%= routine.created_at.strftime('%Y/%m/%d') %></p>
                 </div>
-                <% true_user = routine.user %>
                 <p class="mb-0">作成者:<%= link_to true_user.name, user_path(true_user), class: 'ml-1' %></p>
             </div>
-           <%= link_to "詳細", routine_path(routine) , class: 'btn btn-primary ml-5 pt-2'%>
-           </div>
+             <div class="p-2">
+               <%= link_to "詳細", routine_path(routine) , class: 'btn btn-primary ml-2'%>
+             </div>
+          </div>
         </div>
         
-        <% end %>
-    <% end %>
+<% end %>
+        
+<% end %>
+</div>
+
+<%= paginate @routines %>

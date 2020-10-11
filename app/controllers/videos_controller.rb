@@ -1,8 +1,32 @@
 class VideosController < ApplicationController
     
+    
+    def adding
+      
+      @routine = Routine.find_by(id: params[:routine_id])
+      @video = @routine.videos.build(video_params)
+      @videos = @routine.videos
+          
+      if @video.save
+        flash[:success] = "ビデオを追加しました！"
+        redirect_to routine_videos_new_path(@routine)
+      else
+        flash.now[:danger] = "ビデオの追加に失敗しました"
+        render :new
+      end
+      
+    end
+    
+    
     def new
       @routine = Routine.find_by(id: params[:routine_id])
-      @video = @routine.videos.build
+     
+      if params[:video_id]
+        @video = Video.find_by(id: params[:video_id]) || @routine.videos.build
+      else
+        @video = @routine.videos.build
+      end
+
     end
     
     def create
@@ -12,7 +36,7 @@ class VideosController < ApplicationController
           
       if @video.save
         flash[:success] = "ビデオを追加しました！"
-        redirect_to new_routine_video_path(@routine)
+        redirect_to routine_videos_new_path(@routine)
       else
         flash.now[:danger] = "ビデオの追加に失敗しました"
         render :new
@@ -43,14 +67,14 @@ class VideosController < ApplicationController
       
       @video.destroy
 
-      flash[:success] = 'Message は正常に削除されました'
+      flash[:success] = '動画は正常に削除されました'
       redirect_to @routine
     end
     
     private
     
   def video_params
-    params.require(:video).permit(:url, :start_time, :end_time)
+    params.require(:video).permit(:url, :start_time, :end_time, :description, :category)
   end
     
 end

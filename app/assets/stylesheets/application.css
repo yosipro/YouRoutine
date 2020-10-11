@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+ 
+ .user_icon {
+     border-radius: 50%;
+ }
+ 
+ .profile_container > form {
+     width: 100%;
+ }
+ 
+ .time_field > input {
+  width: 3em;
+ }
+ 
+ .timing_field > input {
+  width: 4em;
+ }
+ 
+ .your_routine {
+  color:  rgb(109, 109, 109);
+ }
+ 
+ .pagination {
+  justify-content: center;
+}
+
+input::placeholder {
+  color:  rgb(109, 109, 109, 0.5);
+}
+
+.fa-search {
+ color: rgb(109, 109, 109);
+}

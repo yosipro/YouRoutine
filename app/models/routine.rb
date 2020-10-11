@@ -9,4 +9,5 @@ class Routine < ApplicationRecord
     validates :time, presence: true, numericality: {only_integer: true}
     validates :image, presence: true
     validates :status, presence: true
+    
 end

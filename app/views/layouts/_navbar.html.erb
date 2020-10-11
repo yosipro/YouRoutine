@@ -9,14 +9,16 @@
       <ul class="navbar-nav">
         <% if logged_in? %>
           <li class="nav-item"><%= link_to 'みんなのルーティン', overviews_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'ビデオ検索', all_pool_path, class: 'nav-link' %></li>
+          <li class="nav-item"><%= link_to 'お気に入りビデオ', my_pool_path, class: 'nav-link' %></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li class="dropdown-item"><%= link_to '新しくルーティンを作成する', new_routine_path %></li>
+              <li class="dropdown-item px-2"><%= link_to '新しくルーティンを作成する', new_routine_path, class: 'p-4' %></li>
               
-              <li class="dropdown-item"><%= link_to 'プロフィールを編集する', edit_profile_path(current_user) %></li>
+              <li class="dropdown-item px-2"><%= link_to 'プロフィールを編集する', edit_profile_path(current_user), class: 'p-4' %></li>
               
-              <li class="dropdown-item"><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+              <li class="dropdown-item px-2"><%= link_to 'ログアウト', logout_path, method: :delete, class: 'p-4' %></li>
             </ul>
           </li>
         <% else %>
