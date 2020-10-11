@@ -39,7 +39,7 @@
 }
 
 input::placeholder {
-  color:  rgb(109, 109, 109, 0.5);
+  color:  alpha(109, 109, 109, 0.5);
 }
 
 .fa-search {
