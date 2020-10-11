@@ -51,6 +51,6 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  database: YouRoutine_production
-  username: YouRoutine
-  password: <%= ENV['MESSAGE-BOARD_DATABASE_PASSWORD'] %>
+  database: youroutine_production
+  username: youroutine
+  password: <%= ENV['YOUROUTINE_DATABASE_PASSWORD'] %>
