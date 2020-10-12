@@ -21,7 +21,6 @@ class RoutinesController < ApplicationController
     @routine = current_user.routines.build(routine_params)
     
     if @routine.save
-      flash[:success] = "ルーティン登録が完了しました！"
       redirect_to routine_videos_new_path(@routine)
     else
       flash.now[:danger] = "ルーティン登録に失敗しました"
