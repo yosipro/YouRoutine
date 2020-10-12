@@ -2,17 +2,17 @@
  <%= render 'layouts/error_messages', model: f.object %>
 
 <div class="d-flex flex-column align-items-center">
-  <%= f.label :title, 'ルーティンのタイトル' %>
+  <%= f.label :title, 'ルーティンのタイトル', class: 'text-monospace font-weight-bold mb-3' %>
   <%= f.text_area :title %>
 </div>
   
-  <div class="d-flex flex-column align-items-center mt-4">
-   <%= f.label :time, 'ルーティンにかかる時間（半角数字）' %>
+  <div class="d-flex flex-column align-items-center mt-5">
+   <%= f.label :time, 'ルーティンにかかる時間（半角数字）', class: 'mb-3 font-weight-bold' %>
    <p class="time_field">約<%= f.text_field :time %>分</p>
  </div>
  
-  <div class="form-group d-flex flex-column align-items-center mt-4">
-   <p>イメージ画像をアップロード!</p>
+  <div class="form-group d-flex flex-column align-items-center mt-5">
+   <p class="font-weight-bold">イメージ画像をアップロード!</p>
     <% if @routine.image? %>                                                              
     <%= image_tag @routine.image.url %>
     <% end %>
@@ -32,7 +32,7 @@
     </div>
   </div>
   
-  <div class="d-flex justify-content-center mt-3">
-  <%= f.submit '保存して、動画を選択する！' %>
+  <div class="d-flex justify-content-center mt-5">
+  <%= f.submit '動画を選択する！' ,class: 'btn btn-info'%>
   </div
 <% end %>

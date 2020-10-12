@@ -29,12 +29,12 @@
 
       <div class="form-group d-flex justify-content-center align-items-center mt-5">
         <%= f.label :start_time, 'ルーティン部分の始まる時間（例, 3分5秒 → 3:05）を入力' %>
-        <div class="col-1"><%= f.text_field :start_time, class: 'form-control' %></div>
+        <div class="col-1"><%= f.text_field :start_time, class: 'form-control', :placeholder => "半角" %></div>
       </div>
 
       <div class="form-group d-flex justify-content-center align-items-center mt-5">
         <%= f.label :end_time, 'ルーティン部分の終わる時間（例, 4分35秒 → 4:35）を入力' %>
-        <div class="col-1"><%= f.text_field :end_time, class: 'form-control' %></div>
+        <div class="col-1"><%= f.text_field :end_time, class: 'form-control', :placeholder => "半角" %></div>
       </div>
 
 <div class="d-flex justify-content-center mt-5">
