@@ -21,7 +21,6 @@
 
 <div class="row">
 <% @videos.each do |video| %>
-<% unless video.getter_ids.include?(current_user.id)%>
 
         
                 <!--以下は始まる時間関係-->
@@ -81,7 +80,7 @@
                 <% end %>
         
         <% end %>
-    <% end %>
+ 
 <% end %>
 </div>
 

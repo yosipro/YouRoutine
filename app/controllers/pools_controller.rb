@@ -14,7 +14,19 @@ class PoolsController < ApplicationController
     end
     
     def all
-        @videos = Video.select(:description, :url, :start_time, :end_time, :id).distinct.page(params[:page]).per(9)
+      
+        array1 = []
+        
+        current_user.possesses.each do |v|
+          array1 << v.id
+        end
+        
+        
+     
+          @videos = Video.where.not(id: array1).select(:description, :start_time, :end_time, :url).distinct.page(params[:page]).per(9)
+        
+
+    
     end
     
     def search
