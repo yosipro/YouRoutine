@@ -14,7 +14,7 @@ class PoolsController < ApplicationController
     end
     
     def all
-        @videos = Video.select("DISTINCT ON (description) description").order(created_at: :desc).page(params[:page]).per(9)
+        @videos = Video.select(:description, :url, :start_time, :end_time, :id).distinct.page(params[:page]).per(9)
     end
     
     def search

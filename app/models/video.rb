@@ -18,4 +18,5 @@ class Video < ApplicationRecord
           all  
         end  
     end  
+
 end
