@@ -23,7 +23,7 @@
 <% true_user = routine.user %>
 
 <% unless current_user == true_user %>
-        <div class="d-flex flex-column align-items-center mt-5 pt-4 col-4">
+        <div class="d-flex flex-column align-items-center mt-5 pt-4 col-md-6 col-lg-4">
         <% if routine.image? %>
         <div class="mb-1" style="width: 250px;"><%= image_tag routine.image.url, class: "border border-dark rounded" %><p class="mb-1 text-center text-wrap pt-2"><%= routine.title %></p></div>
         <% end %>

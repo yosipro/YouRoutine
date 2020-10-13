@@ -1,11 +1,11 @@
-<p class="h4 mb-4">プロフィール編集ページ</p>
+<p class="h5 mb-5 text-center">プロフィール編集ページ</p>
 
 <div class="d-flex justify-content-center profile_container">
   
 <%= form_with model: @user , local: true, url: {controller: 'profiles', action: 'update' } do |f| %>
 
   
-<div class="d-flex flex-column align-items-center w-50 mx-auto">
+<div class="d-flex flex-column align-items-center w-50 mx-auto mt-2">
   <div class="d-flex justify-content-around align-items-cneter w-100">
   <%= f.label :name, 'ニックネーム',class: 'mr-4 mt-1' %>
   <%= f.text_field :name, class: 'col-6' %>
