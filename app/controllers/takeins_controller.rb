@@ -4,14 +4,14 @@ class TakeinsController < ApplicationController
   def create
     video = Video.find(params[:video_id])
     current_user.possess(video)
-    flash[:success] = "ビデオのプールに追加しました"
-    redirect_to root_path
+    flash[:success] = "お気に入りのビデオに追加しました！"
+    redirect_to all_pool_path
   end
 
   def destroy
     video = Video.find(params[:video_id])
     current_user.letgo(video)
-    flash[:success] = "ビデオをプールから放出しました"
-    redirect_to root_path
+    flash[:success] = "お気に入りから解除しました"
+    redirect_to my_pool_path
   end
 end
