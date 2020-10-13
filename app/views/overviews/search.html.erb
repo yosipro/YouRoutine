@@ -30,7 +30,9 @@
         
           <div class="d-flex justify-content-between align-items-center">
             <div>
+                <% if true_user.image? %>
                <%= image_tag true_user.image.thumb.url, class: "border border-dark user_icon" %>
+               <% end %>
             </div>
             <div class="d-flex flex-column align-items-start px-2">
                 <div class="row ml-1">
