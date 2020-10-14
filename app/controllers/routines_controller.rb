@@ -9,8 +9,10 @@ class RoutinesController < ApplicationController
   end
   
   def show
+    
     @routine = Routine.find(params[:id])
     @videos = @routine.videos
+    
   end
 
   def new
