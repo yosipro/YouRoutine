@@ -23,7 +23,7 @@ class PoolsController < ApplicationController
         
         
      
-          @videos = Video.where.not(id: array1).select(:description, :start_time, :end_time, :url).distinct.page(params[:page]).per(9)
+          @videos = Video.where.not(id: array1).select(:description, :start_time, :end_time, :url, :id).distinct.page(params[:page]).per(9)
         
 
     
