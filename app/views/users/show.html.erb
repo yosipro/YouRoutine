@@ -1,6 +1,8 @@
 <div class="d-flex justify-content-center align-items-center">
     <div>
-        <%= image_tag @user.image.thumb.url, class: "border border-dark user_icon" %>
+        <% if @user.image? %>
+            <%= image_tag @user.image.thumb.url, class: "border border-dark user_icon" %>
+        <% end %>
     </div>
     <div class="ml-2"><%= @user.name %></div> 
     <div class="ml-2">が公開しているルーティン一覧</div>
