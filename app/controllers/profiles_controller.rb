@@ -33,8 +33,7 @@ class ProfilesController < ApplicationController
   end
   
   def correct_user
-    @user = current_user
-    unless @user
+    unless @user == current_user
       redirect_to root_url
     end
   end
