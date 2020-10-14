@@ -17,6 +17,7 @@ class User < ApplicationRecord
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
     validates :gender, presence: true
+    validates :image, presence: true
     has_secure_password
     
   def obtain(other_routine)
