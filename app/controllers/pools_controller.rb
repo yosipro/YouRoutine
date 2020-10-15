@@ -122,7 +122,7 @@ class PoolsController < ApplicationController
             @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 4).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
-            redirect_to all_pool_path
+            redirect_to result_none_pool_path
           end
        
       else 
@@ -131,6 +131,9 @@ class PoolsController < ApplicationController
       
     end
     
+    end
+    
+    def none
     end
     
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'my_pool', to: 'pools#mine'
   get 'all_pool', to: 'pools#all'
   get 'search_video', to: 'pools#search'
+  get 'result_none', to: 'pools#none'
  
   resources :profiles, only: [:show, :edit, :update]
   
