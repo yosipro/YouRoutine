@@ -2,7 +2,11 @@
   <div class="d-flex flex-column justify-content-around align-items-center mb-5">
  
     <div class="form-group d-flex justify-content-center align-items-center">
+    <% if @keyword.present? %>
       <i class="fas fa-search"></i><%= f.text_field :search, :placeholder => @keyword, class: 'ml-3' %>
+    <% else %>
+      <i class="fas fa-search"></i><%= f.text_field :search, :placeholder => "キーワード", class: 'ml-3' %>
+    <% end %>
     </div>
     <div class="form-group">
         <% if @selected == 1 %>

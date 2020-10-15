@@ -45,3 +45,7 @@ input::placeholder {
 .fa-search {
  color: rgb(109, 109, 109);
 }
+
+body {
+ background: #f5f5f5;
+}

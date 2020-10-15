@@ -1,56 +1,11 @@
 <% if logged_in? %>
 
-  <div>
-<div class="row mb-2">
-    <h4 class="col-lg-4 your_routine text-center">作成済みのルーティン</h4>
-    <div class="cl-8"></div>
+  <div class="mt-3">
+<div class="row mb-2 d-flex align-items-center flex-column flex-lg-row">
+    <h5 class="col-lg-4 text-center"><i class="fas fa-user-plus mr-3"></i>取得済みのルーティン</h5>
+    <div class="col-lg-8 text-center text-lg-left mt-4 mt-lg-0"><%= link_to "新しくルーティンを取得する！", overviews_path, class: "btn btn-warning" %></div>
 </div>
-<div class="row">
-<% @routines.each do |routine| %>
-<% true_user = routine.user %>
-    <div class="col-md-6 col-lg-4 d-flex flex-column justifty-content-around mt-5 mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-between h-100">
-        <% if routine.image? %>
-        <div class="mb-1" style="width: 250px;"><%= image_tag routine.image.url, class: "border border-dark rounded" %><p class="mb-1 text-center text-wrap pt-2"><%= routine.title %></p></div>
-        <% end %>
-        
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <% if true_user.image? %>
-               <%= image_tag true_user.image.thumb.url, class: "border border-dark user_icon" %>
-               <% end %>
-            </div>
-            <div class="d-flex flex-column align-items-center px-2">
-                <div class="d-flex justify-content-around ml-1 w-100">
-                    <p class="mb-0"><%= routine.time %>分</p>
-                    <% if routine.status == 0 %>
-                      <p class="mb-0">公開</p>
-                    <% else %>
-                      <p class="mb-0">非公開</p>
-                    <% end %>
-                </div>
-                <div><%= link_to true_user.name, user_path(true_user), class: 'ml-1' %></div>
-            </div>
-             <div class="p-2">
-               <%= link_to "実行", routine_path(routine) , class: 'btn btn-primary'%>
-             </div>
-          </div>
-        </div>
-    </div>
-        
-    <% end %>
-</div>
-      <div class="d-flex justify-content-end">  
-      <%= link_to "新しいルーティンを作成する！", new_routine_path, class: "btn btn-success mt-5 mr-5" %>
-      </div>
-  </div>
-<hr class="mt-5">
-
-  <div class="mt-5">
-<div class="row mb-2">
-    <h4 class="col-lg-4 your_routine text-center">取得済みのルーティン</h4>
-    <div class="col-8"></div>
-</div>  
+    
 <div class="row">
 <% @obtainings.each do |routine| %>
 <% true_user = routine.user %>
@@ -85,10 +40,52 @@
     </div>
         
     <% end %>
+</div>
+
+  </div>
+<hr class="mt-5">
+
+  <div class="mt-5">
+<div class="row mb-2 d-flex align-items-center flex-column flex-lg-row">
+    <h5 class="col-lg-4 text-center"><i class="far fa-edit mr-3"></i>作成済みのルーティン</h5>
+    <div class="col-8 text-center text-lg-left mt-4 mt-lg-0"><%= link_to "新しいルーティンを作成する！", new_routine_path, class: "btn btn-warning" %></div>
+</div>  
+<div class="row mt-5">
+<% @routines.each do |routine| %>
+<% true_user = routine.user %>
+    <div class="col-md-6 col-lg-4 d-flex flex-column justifty-content-around mt-5 mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-between h-100">
+        <% if routine.image? %>
+        <div class="mb-1" style="width: 250px;"><%= image_tag routine.image.url, class: "border border-dark rounded" %><p class="mb-1 text-center text-wrap pt-2"><%= routine.title %></p></div>
+        <% end %>
+        
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <% if true_user.image? %>
+               <%= image_tag true_user.image.thumb.url, class: "border border-dark user_icon" %>
+               <% end %>
+            </div>
+            <div class="d-flex flex-column align-items-center px-2">
+                <div class="d-flex justify-content-around ml-1 w-100">
+                    <p class="mb-0"><%= routine.time %>分</p>
+                    <% if routine.status == 0 %>
+                      <p class="mb-0">公開</p>
+                    <% else %>
+                      <p class="mb-0">非公開</p>
+                    <% end %>
+                </div>
+                <div><%= link_to true_user.name, user_path(true_user), class: 'ml-1' %></div>
+            </div>
+             <div class="p-2">
+               <%= link_to "実行", routine_path(routine) , class: 'btn btn-primary'%>
+             </div>
+          </div>
+        </div>
+    </div>
+        
+    <% end %>
      </div>
-      <div class="d-flex justify-content-end">  
-      <%= link_to "新しくルーティンを取得する！", overviews_path, class: "btn btn-success mt-5 mr-5" %>
-      </div>
+      
   </div>
 
 
