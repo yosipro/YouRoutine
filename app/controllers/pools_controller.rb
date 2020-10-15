@@ -57,7 +57,7 @@ class PoolsController < ApplicationController
       elsif params[:category].to_i == 2
         
           if Video.search(params[:search]).where(category: 2).present?
-            @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).where(category: 2).search(params[:search]).page(params[:page]).per(9)
+            @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 2).search(params[:search]).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
             redirect_to all_pool_path
@@ -66,7 +66,7 @@ class PoolsController < ApplicationController
       elsif params[:category].to_i == 3
   
           if Video.search(params[:search]).where(category: 3).present?
-            @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).where(category: 3).search(params[:search]).page(params[:page]).per(9)
+            @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 3).search(params[:search]).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
             redirect_to all_pool_path
@@ -75,14 +75,14 @@ class PoolsController < ApplicationController
       elsif params[:category].to_i == 4
   
           if Video.search(params[:search]).where(category: 4).present?
-            @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).where(category: 4).search(params[:search]).page(params[:page]).per(9)
+            @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 4).search(params[:search]).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
             redirect_to all_pool_path
           end
        
       else 
-          @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).search(params[:search]).page(params[:page]).per(9)
+          @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).search(params[:search]).page(params[:page]).per(9)
       end
     
     else
@@ -91,7 +91,6 @@ class PoolsController < ApplicationController
   
           if Video.where(category: 1).present?
             @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 1).page(params[:page]).per(9)
-  
           else
             flash[:danger] = '条件に合うビデオが見つかりませんでした'
             redirect_to all_pool_path
@@ -102,7 +101,7 @@ class PoolsController < ApplicationController
       elsif params[:category].to_i == 2
         
           if Video.where(category: 2).present?
-            @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).where(category: 2).page(params[:page]).per(9)
+            @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 2).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
             redirect_to all_pool_path
@@ -111,7 +110,7 @@ class PoolsController < ApplicationController
       elsif params[:category].to_i == 3
   
           if Video.where(category: 3).present?
-            @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).where(category: 3).page(params[:page]).per(9)
+            @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 3).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
             redirect_to all_pool_path
@@ -120,14 +119,14 @@ class PoolsController < ApplicationController
       elsif params[:category].to_i == 4
   
           if Video.where(category: 4).present?
-            @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).where(category: 4).page(params[:page]).per(9)
+            @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).where(category: 4).page(params[:page]).per(9)
           else
             flash[:danger] = "条件に合うビデオが見つかりませんでした"
             redirect_to all_pool_path
           end
        
       else 
-          @videos = Video.select(:description, :start_time, :end_time, :url, :id).distinct.where.not(id: array1).page(params[:page]).per(9)
+          @videos = Video.where(id:  Video.group(:description, :start_time, :end_time).select('max(id)') ).order(id: :desc).where.not(id: array1).page(params[:page]).per(9)
       end
       
     end
