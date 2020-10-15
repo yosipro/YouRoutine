@@ -5,6 +5,9 @@ Rails.application.routes.draw do
  resources :overviews, only: [:index] do
     get :search, on: :collection
   end
+
+  get 'routine_none', to: 'overviews#none'
+  
   
   get 'pool', to: 'pools#index'
   get 'my_pool', to: 'pools#mine'

@@ -13,7 +13,7 @@ class OverviewsController < ApplicationController
           @routines = Routine.where(time: 0..5).where(status: 0).order(time: :desc).page(params[:page]).per(9)
         else
           flash[:danger] = '条件に合うルーティンが見つかりませんでした'
-          redirect_to overviews_path
+          redirect_to routine_none_path
         end
     
         
@@ -24,7 +24,7 @@ class OverviewsController < ApplicationController
           @routines = Routine.where(time: 0..10).where(status: 0).order(time: :desc).page(params[:page]).per(9)
         else
           flash[:danger] = "条件に合うルーティンが見つかりませんでした"
-          redirect_to overviews_path
+          redirect_to routine_none_path
         end
       
     elsif params[:search].to_i == 2
@@ -33,7 +33,7 @@ class OverviewsController < ApplicationController
           @routines = Routine.where(time: 0..15).where(status: 0).order(time: :desc).page(params[:page]).per(9)
         else
           flash[:danger] = "条件に合うルーティンが見つかりませんでした"
-          redirect_to overviews_path
+          redirect_to routine_none_path
         end
      
     else 
@@ -42,10 +42,12 @@ class OverviewsController < ApplicationController
           @routines = Routine.where("time > ?", 15).where(status: 0).order(id: :desc).page(params[:page]).per(9)
         else
           flash[:danger] = "条件に合うルーティンが見つかりませんでした"
-          redirect_to overviews_path
+          redirect_to routine_none_path
         end
         
     end
   end
   
+  def none
+  end
 end
