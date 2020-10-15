@@ -35,6 +35,7 @@ class ProfilesController < ApplicationController
   def correct_user
     unless @user == current_user
       redirect_to root_url
+      flash[:danger] = '他のユーザーのプロフィールは編集できません'
     end
   end
 end

@@ -4,13 +4,33 @@
 <%= form_with local: true, url: search_overviews_path, method: :get do |f| %>
   <div class="text-center mt-5">
     <div class="form-group">
-  <%= f.radio_button :search, "0" %>
+        <% if @selected == 0 %>
+          <%= f.radio_button :search, "0", :checked=>'checked' %>
+        <% else %>
+          <%= f.radio_button :search, "0" %>
+        <% end %>
   <%= f.label :time_0, "5分以内", {value: 0, style: "display: inline-block;"} %>
-  <%= f.radio_button :search, "1", class: 'ml-2' %>
+  
+  <% if @selected == 1 %>
+      <%= f.radio_button :search, "1", class: 'ml-2', :checked=>'checked' %>
+  <% else %>
+      <%= f.radio_button :search, "1", class: 'ml-2' %>
+  <% end %>
   <%= f.label :time_1, "10分以内", {value: 1, style: "display: inline-block;"} %>
-  <%= f.radio_button :search, "2", class: 'ml-2' %>
+  
+  
+  <% if @selected == 2 %>
+      <%= f.radio_button :search, "2", class: 'ml-2', :checked=>'checked' %>
+  <% else %>
+      <%= f.radio_button :search, "2", class: 'ml-2' %>
+  <% end %>
   <%= f.label :time_2, "15分以内", {value: 1, style: "display: inline-block;"} %>
-  <%= f.radio_button :search, "3", class: 'ml-2' %>
+  
+  <% if @selected == 3 %>
+      <%= f.radio_button :search, "3", class: 'ml-2', :checked=>'checked' %>
+  <% else %>
+      <%= f.radio_button :search, "3", class: 'ml-2' %>
+  <% end %>  
   <%= f.label :time_3, "それ以上", {value: 1, style: "display: inline-block;"} %>
 
     <%= f.submit '検索', class: 'ml-4 btn btn-info'%>
@@ -23,7 +43,8 @@
 <% true_user = routine.user %>
 
 <% unless current_user == true_user %>
-        <div class="d-flex flex-column align-items-center mt-5 pt-4 col-md-6 col-lg-4">
+     <div class="col-md-6 col-lg-4 d-flex flex-column justifty-content-around mt-5 mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-between h-100">
         <% if routine.image? %>
         <div class="mb-1" style="width: 250px;"><%= image_tag routine.image.url, class: "border border-dark rounded" %><p class="mb-1 text-center text-wrap pt-2"><%= routine.title %></p></div>
         <% end %>
@@ -34,18 +55,23 @@
                <%= image_tag true_user.image.thumb.url, class: "border border-dark user_icon" %>
                <% end %>
             </div>
-            <div class="d-flex flex-column align-items-start px-2">
-                <div class="row ml-1">
+            <div class="d-flex flex-column align-items-center px-2">
+                <div class="d-flex justify-content-around ml-1 w-100">
                     <p class="mb-0"><%= routine.time %>分</p>
-                    <p class="mb-0 ml-3"> <%= routine.created_at.strftime('%Y/%m/%d') %></p>
+                    <% if routine.status == 0 %>
+                      <p class="mb-0">公開</p>
+                    <% else %>
+                      <p class="mb-0">非公開</p>
+                    <% end %>
                 </div>
-                <p class="mb-0">作成者:<%= link_to true_user.name, user_path(true_user), class: 'ml-1' %></p>
+                <div><%= link_to true_user.name, user_path(true_user), class: 'ml-1' %></div>
             </div>
              <div class="p-2">
-               <%= link_to "詳細", routine_path(routine) , class: 'btn btn-primary ml-2'%>
+               <%= link_to "実行", routine_path(routine) , class: 'btn btn-primary'%>
              </div>
           </div>
         </div>
+    </div>
         
 <% end %>
         

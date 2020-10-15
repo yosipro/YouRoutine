@@ -31,6 +31,10 @@ class PoolsController < ApplicationController
     
     def search
       
+      @keyword = params[:search]
+      
+      @selected = params[:category].to_i
+      
         array1 = []
         
         current_user.possesses.each do |v|
