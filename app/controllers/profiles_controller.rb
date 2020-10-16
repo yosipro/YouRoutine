@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
    before_action :require_user_logged_in
-   before_action :correct_user
+
    
   def show
     @user = User.find(params[:id])
@@ -8,6 +8,10 @@ class ProfilesController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to root_url
+      flash[:danger] = '他のユーザーのプロフィールは編集できません'
+    end
   end
 
   def update
@@ -32,10 +36,5 @@ class ProfilesController < ApplicationController
       params.require(:user).permit(:name, :mail, :password_digest, :gender, :ages, :image)
   end
   
-  def correct_user
-    unless @user == current_user
-      redirect_to root_url
-      flash[:danger] = '他のユーザーのプロフィールは編集できません'
-    end
-  end
+
 end
