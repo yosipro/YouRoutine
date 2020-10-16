@@ -39,7 +39,7 @@ class OverviewsController < ApplicationController
     else 
     
         if Routine.where("time > ?", 15).where(status: 0).present?
-          @routines = Routine.where("time > ?", 15).where(status: 0).order(id: :desc).page(params[:page]).per(9)
+          @routines = Routine.where("time > ?", 15).where(status: 0).order(time: :asc).page(params[:page]).per(9)
         else
           flash[:danger] = "条件に合うルーティンが見つかりませんでした"
           redirect_to routine_none_path
