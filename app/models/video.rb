@@ -3,7 +3,6 @@ class Video < ApplicationRecord
   belongs_to :routine
   has_many :takeins, dependent: :destroy
   has_many :getters, through: :takeins, source: :user, dependent: :destroy
-  has_many :makers, through: :routines, source: :user, dependent: :destroy
   
 
     before_save { self.start_time.downcase! }
