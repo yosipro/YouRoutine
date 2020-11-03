@@ -29,12 +29,15 @@
             <% if q.start_with?("v=") %>
              <% idy = q.split("=").last %>
         <div class="d-flex flex-column align-items-center">
-                 <iframe width="560" height="315" 
+                 <iframe width="560" height="315" class="d-none d-md-block"
                  src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="300" height="180" class="d-md-none"
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
             <% end %>
             <% end %>
             
-        <div class="d-flex justify-content-between w-25 mt-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between w-md-25 mt-5">
              <p class="text-secondary">
                 <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
             </p>
@@ -50,18 +53,18 @@
     <%= form_with model: @video, local: true, url: {controller: 'videos', action: 'update' } do |f| %>
        <%= render 'layouts/error_messages', model: f.object %>
        
-      <div class="form-group d-flex justify-content-center align-items-center mt-5">
-        <%= f.label :url, '動画のリンク', class: 'mb-0 mr-3' %>
-        <%= f.text_field :url, class: 'form-control w-50' %>
+      <div class="form-group d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
+        <%= f.label :url, '動画のリンク', class: 'mb-md-0 mb-2 mr-3' %>
+        <%= f.text_field :url, class: 'form-control w-md-50 w-100' %>
       </div>
 
-      <div class="form-group d-flex align-items-center justify-content-center mt-5">
-        <%= f.label :start_time, 'ルーティン部分の始まり', class: 'mb-0 mr-3' %>
+      <div class="form-group d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
+        <%= f.label :start_time, 'ルーティン部分の始まり', class: 'mb-md-0 mb-2 mr-3' %>
         <p class="timing_field mb-0"><%= f.text_field :start_time, class: 'form-control', :placeholder => "半角"  %></p>
       </div>
 
-      <div class="form-group d-flex align-items-center justify-content-center">
-        <%= f.label :end_time, 'ルーティン部分の終わり', class: 'mb-0 mr-3' %>
+      <div class="form-group d-flex flex-column flex-md-row align-items-center justify-content-center">
+        <%= f.label :end_time, 'ルーティン部分の終わり', class: 'mb-md-0 mb-2 mr-3' %>
         <p class="timing_field mb-0"><%= f.text_field :end_time, class: 'form-control', :placeholder => "半角"  %></p>
       </div>
     

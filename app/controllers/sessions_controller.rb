@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
     mail = params[:session][:mail].downcase
     password = params[:session][:password]
     if login(mail, password)
-      flash[:success] = 'ログインに成功しました。'
       redirect_to root_url
     else
       flash.now[:danger] = 'ログインに失敗しました。'

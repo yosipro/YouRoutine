@@ -1,8 +1,8 @@
 <p class="h4 text-center">ルーティンに使用したい動画をYouTubeから選択しよう！</p>
 
-<div class="d-flex justify-content-center align-items-center mt-5 ml-4">
-  <%= link_to 'YouTubeへ', 'https://www.youtube.com/', target: :_blank, class: "btn btn-danger" %>
-  <div class="mx-4">or</div>
+<div class="d-flex flex-column flex-md-row justify-content-center align-items-center mt-5 ml-4">
+  <%= link_to 'YouTubeへ', 'https://www.youtube.com/', target: :_blank, class: "btn btn-danger mb-4 mb-md-0" %>
+  <div class="mx-4 d-none d-md-block">or</div>
   <%= form_with local: true, url: pool_path, method: :get do |f| %>
      <%= hidden_field_tag :routine_id, @routine.id %>
   <%= f.submit 'お気に入りから動画を選択する！', class: 'btn btn-warning'%>
@@ -14,12 +14,12 @@
        
       <div class="form-group d-flex flex-column align-items-center mt-5">
         <%= f.label :url, '動画のリンクを貼りつけ' %>
-        <div class="col-4 mt-3"><%= f.text_field :url, class: 'form-control' %></div>
+        <div class="col-12 col-md-4 mt-3"><%= f.text_field :url, class: 'form-control' %></div>
       </div>
       
       <div class="form-group d-flex justify-content-center align-items-center mt-5">
         <%= f.label :category, 'ジャンル', class: 'mb-0' %>
-        <%= f.select :category, {'美容': 1, 'ダイエット': 2, '筋トレ': 3, 'その他': 4}, { include_blank: '選択してください'}, class: 'w-25 ml-4' %>
+        <%= f.select :category, {'美容': 1, 'ダイエット': 2, '筋トレ': 3, 'その他': 4}, { include_blank: '選択してください'}, class: 'w-50 w-md-25 ml-4' %>
       </div>
       
       <div class="d-flex flex-column align-items-center mt-5">
@@ -27,14 +27,14 @@
         <%= f.text_area :description %>
       </div>
 
-      <div class="form-group d-flex justify-content-center align-items-center mt-5">
+      <div class="form-group d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
         <%= f.label :start_time, 'ルーティン部分の始まる時間（例, 3分5秒 → 3:05）を入力' %>
-        <div class="col-1"><%= f.text_field :start_time, class: 'form-control', :placeholder => "半角" %></div>
+        <div class="col-6 col-md-1"><%= f.text_field :start_time, class: 'form-control', :placeholder => "半角" %></div>
       </div>
 
-      <div class="form-group d-flex justify-content-center align-items-center mt-5">
+      <div class="form-group d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
         <%= f.label :end_time, 'ルーティン部分の終わる時間（例, 4分35秒 → 4:35）を入力' %>
-        <div class="col-1"><%= f.text_field :end_time, class: 'form-control', :placeholder => "半角" %></div>
+        <div class="col-6 col-md-1"><%= f.text_field :end_time, class: 'form-control', :placeholder => "半角" %></div>
       </div>
 
 <div class="d-flex justify-content-center mt-5">

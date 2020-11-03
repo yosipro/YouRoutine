@@ -2,39 +2,43 @@
     <p class="text-monospace h5"><i class="far fa-clock"></i> みんなのルーティン</p>
 </div>
 <%= form_with local: true, url: search_overviews_path, method: :get do |f| %>
-  <div class="text-center mt-5">
-    <div class="form-group">
+  <div class="text-center mt-md-5 mt-3">
+    <div class="form-group d-flex flex-column flex-md-row justify-content-center">
+      <div>
         <% if @selected == 0 %>
           <%= f.radio_button :search, "0", :checked=>'checked' %>
         <% else %>
           <%= f.radio_button :search, "0" %>
         <% end %>
   <%= f.label :time_0, "5分以内", {value: 0, style: "display: inline-block;"} %>
-  
+      </div>
+      <div>
   <% if @selected == 1 %>
-      <%= f.radio_button :search, "1", class: 'ml-2', :checked=>'checked' %>
+      <%= f.radio_button :search, "1", class: 'ml-md-2', :checked=>'checked' %>
   <% else %>
-      <%= f.radio_button :search, "1", class: 'ml-2' %>
+      <%= f.radio_button :search, "1", class: 'ml-md-2' %>
   <% end %>
   <%= f.label :time_1, "10分以内", {value: 1, style: "display: inline-block;"} %>
-  
-  
+      </div>
+      <div>
   <% if @selected == 2 %>
-      <%= f.radio_button :search, "2", class: 'ml-2', :checked=>'checked' %>
+      <%= f.radio_button :search, "2", class: 'ml-md-2', :checked=>'checked' %>
   <% else %>
-      <%= f.radio_button :search, "2", class: 'ml-2' %>
+      <%= f.radio_button :search, "2", class: 'ml-md-2' %>
   <% end %>
   <%= f.label :time_2, "15分以内", {value: 1, style: "display: inline-block;"} %>
-  
+      </div>
+      <div>
   <% if @selected == 3 %>
-      <%= f.radio_button :search, "3", class: 'ml-2', :checked=>'checked' %>
+      <%= f.radio_button :search, "3", class: 'ml-md-2', :checked=>'checked' %>
   <% else %>
-      <%= f.radio_button :search, "3", class: 'ml-2' %>
+      <%= f.radio_button :search, "3", class: 'ml-md-2' %>
   <% end %>  
   <%= f.label :time_3, "それ以上", {value: 1, style: "display: inline-block;"} %>
-
-    <%= f.submit '検索', class: 'ml-4 btn btn-info'%>
+      </div>
     </div>
+    <%= f.submit '検索', class: 'ml-md-4 btn btn-info mt-2'%>
+    
   </div>
 <% end %>
 <div class="row">

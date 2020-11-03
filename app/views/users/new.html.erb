@@ -26,8 +26,8 @@
        </div>
       </div>
       
-      <div class="form-group d-flex align-items-center justify-content-between mt-5 mb-5">
-         <div><i class="far fa-image mr-2"></i>プロフィール画像をアップロード!</div>
+      <div class="form-group d-flex flex-column align-items-center justify-content-between mt-5 mb-5">
+         <div class="mb-5 font-weight-bold"><i class="far fa-image mr-2"></i>プロフィール画像をアップロード!</div>
           <% if @user.image? %>                                                              
           <%= image_tag @user.image.edit_thumb.url, class: "border border-dark user_icon" %>
           <% end %>

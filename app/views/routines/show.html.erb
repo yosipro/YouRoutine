@@ -9,7 +9,7 @@
 <% if @routine.status == 0 && current_user == @routine.user then %>
 
 
-    <ul>
+    <ul class="p-0">
         
                 <% @videos.each do |video| %>
         
@@ -48,21 +48,22 @@
                  <% idy = uri.path.split("/").last %>
                  <% end %>
                 <div class="d-flex align-items-center flex-column justify-content-center mt-5">
-                 <iframe width="560" height="315" 
+                 <iframe width="560" height="315" class="d-none d-md-block" 
                  src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                 
-                     <div class="d-flex mt-4 col-4 justify-content-between">
-                         <p class="text-monospace">
+                 <iframe width="300" height="180" class="d-md-none" 
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                     <div class="d-flex flex-md-row flex-column mt-4 col-md-4 justify-content-between">
+                         <p class="text-monospace text-center">
                              <%= durations(video) %>
                          </p>
-                         <p class="text-monospace">合計<% if total_time_minute != 0 %>
+                         <p class="text-monospace text-center">合計<% if total_time_minute != 0 %>
                              <%= format_minutes(total_time_minute) %>
                              <% end %>
                              <%= format_seconds(total_time_second) %>
                         </p>
                     </div>
-                    <div class="d-flex justify-content-around align-items-center mb-5 mt-3">
-                     <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary text-monospace mr-5' %>
+                    <div class="d-flex flex-column flex-md-row justify-content-around align-items-center mb-5 mt-3">
+                     <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary text-monospace mr-md-5 mb-3 mb-md-0' %>
                      <%= render 'takeins/possess_button', video: video %>
                      </div>
                 </div>
@@ -77,16 +78,16 @@
     </ul>
     
     <hr>
-    <div class="d-flex justify-content-around">
-        <%= link_to 'このルーティンに動画を追加する！', "/routines/#{@routine.id}/videos/new", class: 'btn btn-success' %>
-        <%= link_to 'ルーティンのタイトルや画像を変更する！', edit_routine_path(@routine), class: 'btn btn-dark' %>
+    <div class="d-flex flex-column flex-md-row justify-content-around">
+        <%= link_to 'ルーティンに動画を追加する！', "/routines/#{@routine.id}/videos/new", class: 'btn btn-success mb-4 mb-md-0' %>
+        <%= link_to 'ルーティンのタイトルなどを変更する！', edit_routine_path(@routine), class: 'btn btn-dark mb-4 mb-md-0' %>
         <%= link_to 'このルーティンを削除する', @routine , method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
     </div>
     
 
     
 <% elsif @routine.status == 0 && current_user != @routine.user then %>
-    <ul>
+    <ul class="p-0">
         
                 <% @videos.each do |video| %>
         
@@ -126,14 +127,16 @@
                  <% end %>
             
                 <div class="d-flex align-items-center flex-column justify-content-center mt-5">
-                 <iframe width="560" height="315" 
+                 <iframe width="560" height="315" class="d-none d-md-block"
                  src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                 
-                     <div class="d-flex mt-4 col-4 justify-content-between">
-                         <p class="text-monospace">
+                <iframe width="300" height="180" class="d-md-none"
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                     <div class="d-flex flex-column flex-md-row mt-4 col-md-4 justify-content-between">
+                         <p class="text-monospace text-center">
                              <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
                          </p>
-                         <p class="text-monospace">合計<% if total_time_minute != 0 %>
+                         <p class="text-monospace text-center">合計<% if total_time_minute != 0 %>
                              <%= total_time_minute %>分
                              <% end %>
                              <%= total_time_second %>秒間
@@ -150,14 +153,14 @@
     </ul>
     
     <hr>
-    <div class="d-flex justify-content-around">
+    <div class="d-flex flex-column flex-md-row justify-content-around">
     <%= render 'pickups/obtain_button', routine: @routine %>
-    <%= link_to '他のルーティンを見る！', overviews_path, class: 'btn btn-success' %>
+    <%= link_to '他のルーティンを見る！', overviews_path, class: 'btn btn-success mt-4 mt-md-0' %>
     </div>
 
 <% elsif current_user == @routine.user && @routine.status == 1 then %>
  
-    <ul>
+    <ul class="p-0">
         
                 <% @videos.each do |video| %>
         
@@ -196,21 +199,23 @@
                  <% idy = uri.path.split("/").last %>
                  <% end %>
                 <div class="d-flex align-items-center flex-column justify-content-center mt-5">
-                 <iframe width="560" height="315" 
+                 <iframe width="560" height="315" class="d-none d-md-block"
                  src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                 
-                     <div class="d-flex mt-4 col-4 justify-content-between">
-                         <p class="text-monospace">
+                 <iframe width="300" height="180" class="d-md-none" 
+                 src="https://www.youtube.com/embed/<%= idy %><% if time != nil %>?start=<%= time %><% end %>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+                     <div class="d-flex flex-column flex-md-row mt-4 col-md-4 justify-content-between">
+                         <p class="text-monospace text-center">
                              <%= start_time_minute %>分<%= start_time_second %>秒 ~ <%= end_time_minute %>分<%= end_time_second %>秒
                          </p>
-                         <p class="text-monospace">合計<% if total_time_minute != 0 %>
+                         <p class="text-monospace text-center">合計<% if total_time_minute != 0 %>
                              <%= total_time_minute %>分
                              <% end %>
                              <%= total_time_second %>秒間
                         </p>
                     </div>
-                    <div class="d-flex justify-content-around align-items-center mb-5 mt-3">
-                     <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary text-monospace mr-5' %>
+                    <div class="d-flex flex-column flex-md-row justify-content-around align-items-center mb-5 mt-3">
+                     <%= link_to 'この動画を編集する', "/routines/#{@routine.id}/videos/#{video.id}/edit", class: 'btn btn-secondary text-monospace mr-md-5 mb-4 mb-md-0' %>
                      <%= render 'takeins/possess_button', video: video %>
                      </div>
                 </div>
@@ -224,9 +229,9 @@
     </ul>
     
     <hr>
-    <div class="d-flex justify-content-around">
-        <%= link_to 'このルーティンに動画を追加する！', "/routines/#{@routine.id}/videos/new", class: 'btn btn-success' %>
-        <%= link_to 'ルーティンのタイトルや画像を変更する！', edit_routine_path(@routine), class: 'btn btn-dark' %>
+    <div class="d-flex flex-column flex-md-row justify-content-around">
+        <%= link_to 'ルーティンに動画を追加する！', "/routines/#{@routine.id}/videos/new", class: 'btn btn-success mb-4 mb-md-0' %>
+        <%= link_to 'ルーティンのタイトルなどを変更する！', edit_routine_path(@routine), class: 'btn btn-dark mb-4 mb-md-0' %>
         <%= link_to 'このルーティンを削除する', @routine , method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
     </div>
 
